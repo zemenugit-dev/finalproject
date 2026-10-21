@@ -1,0 +1,38 @@
+﻿import inspectionsRouter from './modules/inspections/inspections.routes';
+import usersRouter from './modules/users/users.routes';
+
+
+import transportersRouter from './modules/transporters/transporters.routes';
+import authRouter from './modules/auth/auth.routes';
+import farmersRouter from './modules/farmers/farmers.routes';
+import buyersRouter from './modules/buyers/buyers.routes';
+import marketsRouter from './modules/markets/markets.routes';
+import express, { Application } from 'express';
+import cors from 'cors';
+import productRoutes from './modules/products/products.routes';
+import { getCategories, createCategory } from './modules/categories/categories.controller';
+
+const app: Application = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use('/api/inspections', inspectionsRouter);
+
+// API Routes
+app.use('/api/products', productRoutes);
+app.use('/api/auth', authRouter);
+
+// Categories direct routes
+app.get('/api/categories', getCategories);
+app.post('/api/categories', createCategory);
+app.use('/api/markets', marketsRouter);
+app.use('/api/buyers', buyersRouter);
+app.use('/api/farmers', farmersRouter);
+app.use('/api/transporters', transportersRouter);
+// API Routes
+app.use('/api/users', usersRouter);
+
+export default app;
+
+
