@@ -1,0 +1,10 @@
+﻿import { Router } from 'express';
+import { OrdersController } from './orders.controller';
+const router = Router();
+const ordersController = new OrdersController();
+router.get('/', ordersController.getAll);
+router.get('/:id', ordersController.getById);
+router.post('/', ordersController.create);
+router.patch('/:id', ordersController.update);
+router.delete('/:id', ordersController.delete);
+export default router;

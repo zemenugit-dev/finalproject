@@ -1,7 +1,7 @@
 ﻿
 import { generateAuthToken } from './jwt';
 import bcrypt from 'bcryptjs';
-
+import { AuditService } from '../audit/audit.service';
 import {
   createUser,
   findUserByPhone,
@@ -104,6 +104,24 @@ if (user.is_verified === false) {
 }
 
 const token = generateAuthToken(user);
+
+// Record the successful login.
+try {
+  const auditService = new AuditService();
+
+  await auditService.createAuditLog({
+    userId: Number(user.user_id),
+    action: 'LOGIN',
+    entityType: 'USER',
+    entityId: Number(user.user_id),
+    details: {
+      message: 'User logged in successfully'
+    }
+  });
+} catch (error) {
+  // Do not prevent login if audit logging fails.
+  console.error('Failed to record login audit:', error);
+}
 
 return {
   user: publicUser(user),
