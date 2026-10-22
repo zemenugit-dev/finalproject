@@ -9,6 +9,8 @@ import authRouter from './modules/auth/auth.routes';
 import farmersRouter from './modules/farmers/farmers.routes';
 import buyersRouter from './modules/buyers/buyers.routes';
 import marketsRouter from './modules/markets/markets.routes';
+import forecastsRouter from './modules/forecasts/forecasts.routes';
+
 import productRoutes from './modules/products/products.routes';
 import ordersRouter from './modules/orders/orders.routes';
 import ussdRouter from './modules/ussd/ussd.routes';
@@ -43,6 +45,7 @@ app.use('/api/tracking', trackingRouter);
 app.use('/api/reports', reportsRouter);
 app.use('/api/audit', auditRouter);
 app.use('/api/routes', routesRouter);
+app.use('/api/forecasts', forecastsRouter);
 
 
 // Category routes
